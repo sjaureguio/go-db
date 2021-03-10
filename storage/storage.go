@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"log"
 	"sync"
-	// _ "github.com/lib/pq"
+
+	_ "github.com/lib/pq" //...
 )
 
 var (
@@ -29,6 +30,7 @@ func NewPostgresDB() {
 
 		fmt.Println("Conectado a postgres")
 	})
+
 }
 
 // Pool return a unique instance of db
