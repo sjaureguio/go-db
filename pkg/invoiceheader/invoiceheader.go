@@ -1,6 +1,9 @@
 package invoiceheader
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
 
 // Model of invoiceheader
 type Model struct {
@@ -16,6 +19,7 @@ type Models []*Model
 // Storage interface that must implemente a db dtorage
 type Storage interface {
 	Migrate() error
+	CreateTx(*sql.Tx) error
 }
 
 // Service have contain logic invoiceheader
