@@ -20,8 +20,8 @@ type PsqlInvoiceHader struct {
 	db *sql.DB
 }
 
-// NewPsqlInvoiceHader return a new pointer of PsqlInvoiceHader
-func NewPsqlInvoiceHader(db *sql.DB) *PsqlInvoiceHader {
+// NewPsqlInvoiceHeader return a new pointer of PsqlInvoiceHader
+func NewPsqlInvoiceHeader(db *sql.DB) *PsqlInvoiceHader {
 	return &PsqlInvoiceHader{db}
 }
 
