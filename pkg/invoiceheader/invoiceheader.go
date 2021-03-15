@@ -19,7 +19,7 @@ type Models []*Model
 // Storage interface that must implemente a db dtorage
 type Storage interface {
 	Migrate() error
-	CreateTx(*sql.Tx) error
+	CreateTx(*sql.Tx, *Model) error
 }
 
 // Service have contain logic invoiceheader

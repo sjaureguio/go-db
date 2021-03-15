@@ -3,15 +3,17 @@ package main
 import (
 	"log"
 
-	"github.com/sjaureguio/go-db/pkg/product"
+	"github.com/sjaureguio/go-db/pkg/invoice"
+	"github.com/sjaureguio/go-db/pkg/invoiceheader"
+	"github.com/sjaureguio/go-db/pkg/invoiceitem"
 	"github.com/sjaureguio/go-db/storage"
 )
 
 func main() {
 	storage.NewPostgresDB()
 
-	storageProduct := storage.NewPsqlProduct(storage.Pool())
-	serviceProduct := product.NewService(storageProduct)
+	// storageProduct := storage.NewPsqlProduct(storage.Pool())
+	// serviceProduct := product.NewService(storageProduct)
 
 	// m := &product.Model{
 	// 	Name:         "Curso de BD con go",
@@ -60,10 +62,34 @@ func main() {
 	// 	Price: 50,
 	// }
 
-	err := serviceProduct.Delete(3)
+	// err := serviceProduct.Delete(3)
 
-	if err != nil {
-		log.Fatalf("product.Delete: %v", err)
+	// if err != nil {
+	// 	log.Fatalf("product.Delete: %v", err)
+	// }
+
+	storageHeader := storage.NewPsqlInvoiceHeader(storage.Pool())
+	storageItems := storage.NewPsqlInvoiceItem(storage.Pool())
+
+	storageInvoice := storage.NewPsqlInvoice(
+		storage.Pool(),
+		storageHeader,
+		storageItems,
+	)
+
+	serviceInvoice := invoice.NewService(storageInvoice)
+
+	m := &invoice.Model{
+		Header: &invoiceheader.Model{
+			Client: "Juan",
+		},
+		Items: invoiceitem.Models{
+			&invoiceitem.Model{
+				ProductID: 1,
+			},
+		},
 	}
-
+	if err := serviceInvoice.Create(m); err != nil {
+		log.Fatalf("invoice.Create: %v", err)
+	}
 }

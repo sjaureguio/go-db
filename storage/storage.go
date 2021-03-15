@@ -31,7 +31,6 @@ func NewPostgresDB() {
 
 		fmt.Println("Conectado a postgres")
 	})
-
 }
 
 // Pool return a unique instance of db
